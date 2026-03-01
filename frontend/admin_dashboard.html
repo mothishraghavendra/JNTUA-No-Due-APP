@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - No Dues System</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+    <header>
+        <div class="logo">No Dues System</div>
+        <nav>
+            <button id="logoutBtn">Logout</button>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Welcome, Admin</h1>
+
+        <section class="stats">
+            <div class="card">
+                <h3>Total Students</h3>
+                <p id="totalStudents">0</p>
+            </div>
+            <div class="card">
+                <h3>Pending Approvals</h3>
+                <p id="pendingApprovals">0</p>
+            </div>
+            <div class="card">
+                <h3>Completed Applications</h3>
+                <p id="completedApplications">0</p>
+            </div>
+        </section>
+
+        <section class="applications-section">
+            <h2>Applications</h2>
+            <table id="applicationsTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>Branch</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic rows will be inserted here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
