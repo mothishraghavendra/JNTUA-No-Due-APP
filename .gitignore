@@ -12,7 +12,7 @@ node_modules/
 
 # ignoring ENV
 .env
-.env.*
+
 
 # ignoring build_outputs
 

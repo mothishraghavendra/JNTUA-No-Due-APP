@@ -158,3 +158,12 @@ cd frontend
 npm install
 npm start
 ```
+
+## Database 
+- checkout the .env.example file and create a ENV file in backend as it is with your values then execute 
+```bash
+cd backend/src/config
+node initDB.js
+```
+
+- this will create the database schema 
