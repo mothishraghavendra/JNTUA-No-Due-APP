@@ -1,9 +1,10 @@
 const { pool } = require('./db');
 // this will execute the db.js file and return the export modules like pool and ConnectDB 
+const crypt = require("bcrypt");
 async function initDB(){
     try{
         await pool.query(
-            `CREATE TABLE users (
+            `CREATE TABLE IF NOT EXISTS users (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 name VARCHAR(150) NOT NULL,
                 email VARCHAR(255) NOT NULL UNIQUE,
@@ -16,7 +17,7 @@ async function initDB(){
             ) ENGINE=InnoDB;`
         );
         await pool.query(
-            `CREATE TABLE departments (
+            `CREATE TABLE IF NOT EXISTS departments (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 name VARCHAR(150) NOT NULL,
                 type ENUM('COMMON', 'BRANCH') NOT NULL,
@@ -31,7 +32,7 @@ async function initDB(){
             ) ENGINE=InnoDB;`
         );
         await pool.query(
-            `CREATE TABLE applications (
+            `CREATE TABLE IF NOT EXISTS applications (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 student_id INT NOT NULL,
                 status VARCHAR(50) NOT NULL,
@@ -46,7 +47,7 @@ async function initDB(){
             ) ENGINE=InnoDB;`
         );
         await pool.query(
-            `CREATE TABLE approvals (
+            `CREATE TABLE IF NOT EXISTS approvals (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 application_id INT NOT NULL,
                 department_id INT NOT NULL,
@@ -75,7 +76,7 @@ async function initDB(){
             ) ENGINE=InnoDB;`
         );
         await pool.query(
-            `CREATE TABLE activation_tokens (
+            `CREATE TABLE IF NOT EXISTS activation_tokens (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 user_id INT NOT NULL,
                 token VARCHAR(255) NOT NULL,
@@ -90,7 +91,7 @@ async function initDB(){
             ) ENGINE=InnoDB;`
         );
         await pool.query(
-            `CREATE TABLE audit_logs (
+            `CREATE TABLE IF NOT EXISTS audit_logs (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 user_id INT NULL,
                 action VARCHAR(255) NOT NULL,
@@ -111,6 +112,27 @@ async function initDB(){
     catch(err){
         console.log("error : ",err.message);
     }
+    await superUser();
+}
+
+async function superUser(){
+    const password = await crypt.hash(process.env.ADMIN_PASSWORD,10);
+    const admin_mail = process.env.ADMIN_MAIL;
+    const admin_name = process.env.ADMIN_USERNAME;
+    const [existing] = await pool.query(
+        `select * from users where email = ?`,[admin_mail]
+    )
+    if(existing.length > 0){
+        console.log("Admin already existing");
+        return;
+    }
+
+    const [result] = await pool.query(
+        `INSERT INTO users (name, email, password_hash, role, is_active)
+         VALUES (?, ?, ?, ?, ?)`,
+        [admin_name,admin_mail,password, 'ADMIN', true]
+    )
+    console.log("Admin created");
 }
 
 module.exports = initDB()
