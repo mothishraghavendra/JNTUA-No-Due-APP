@@ -3,8 +3,8 @@
 A full-stack No Dues Management System built using a **Monorepo Architecture** with:
 
 - Backend: Node.js + Express
-- Frontend: React
-- Database: (To be configured)
+- Frontend: HTML, CSS, JavaScript
+- Database: MySQL
 - Authentication: JWT-based
 
 This project is designed with a **modular architecture**, ensuring scalability, maintainability, and clean separation of concerns.
@@ -14,9 +14,10 @@ This project is designed with a **modular architecture**, ensuring scalability, 
 # Project Structure
 
 ```
-no-dues-system/
+nodue/
 │
-├── .gitignore
+├── README.md
+├── package.json
 ├── backend/
 ├── frontend/
 └── docs/
@@ -31,27 +32,28 @@ backend/
 │
 ├── src/
 │   ├── config/
-│   │   ├── db.js
-│   │   ├── jwt.js
-│   │   └── mail.js
+│   │   ├── db.js          # Database connection pool
+│   │   ├── initDB.js      # Database schema initialization
+│   │   ├── jwt.js         # JWT configuration
+│   │   └── mail.js        # Email configuration
 │   │
 │   ├── modules/
-│   │   ├── auth/
-│   │   ├── users/
-│   │   ├── departments/
-│   │   ├── applications/
-│   │   ├── approvals/
-│   │   └── admin/
+│   │   ├── admin/         # Admin module
+│   │   ├── auth/          # Authentication module
+│   │   ├── users/         # User management
+│   │   ├── department/    # Department module
+│   │   ├── applications/  # Applications module
+│   │   └── approvals/     # Approvals module
 │   │
-│   ├── middlewares/
-│   │   ├── authMiddleware.js
-│   │   ├── roleMiddleware.js
-│   │   └── errorHandler.js
+│   ├── middleware/
+│   │   ├── authMiddleware.js   # JWT authentication
+│   │   ├── roleMiddleware.js   # Role-based access control
+│   │   └── errorHandler.js     # Global error handling
 │   │
 │   ├── utils/
-│   │   ├── generateToken.js
-│   │   ├── generateQR.js
-│   │   └── generatePDF.js
+│   │   ├── generateToken.js    # Token generation
+│   │   ├── generateQR.js       # QR code generation
+│   │   └── generatePDF.js      # PDF generation
 │   │
 │   ├── routes.js
 │   └── server.js
@@ -67,51 +69,43 @@ backend/
 - Centralized configuration management
 - Middleware-based authentication and role control
 - Utility layer for reusable logic
+- MySQL database with connection pooling
 - Scalable for future microservices
 
 ---
 
-# Frontend (React)
+# Frontend (HTML/CSS/JavaScript)
 
 ```
 frontend/
 │
-├── src/
-│   ├── api/
-│   │   ├── authApi.js
-│   │   ├── studentApi.js
-│   │   ├── departmentApi.js
-│   │   └── adminApi.js
-│   │
-│   ├── pages/
-│   │   ├── Login.jsx
-│   │   ├── ActivateAccount.jsx
-│   │   ├── StudentDashboard.jsx
-│   │   ├── DepartmentDashboard.jsx
-│   │   ├── AdminDashboard.jsx
-│   │
-│   ├── components/
-│   │   ├── Navbar.jsx
-│   │   ├── StatusTable.jsx
-│   │   ├── ProgressBar.jsx
-│   │   └── ProtectedRoute.jsx
-│   │
-│   ├── context/
-│   │   └── AuthContext.jsx
-│   │
-│   ├── hooks/
-│   └── App.jsx
+├── index.html              # Landing page
+├── login.html              # Login page
+├── dashboard.html          # General dashboard
+├── student_dashboard.html  # Student dashboard
+├── admin_dashboard.html    # Admin dashboard
 │
-└── package.json
+├── js/
+│   ├── api.js              # API communication layer
+│   ├── main.js             # Main application logic
+│   ├── login.js            # Login functionality
+│   └── dashboard.js        # Dashboard functionality
+│
+├── styles/
+│   ├── styles.css          # Global styles
+│   ├── login.css           # Login page styles
+│   └── dashboard.css       # Dashboard styles
+│
+└── images/                 # Static images
 ```
 
 ## 🔹 Frontend Architecture
 
-- API abstraction layer
-- Page-based routing
-- Reusable UI components
-- Authentication context management
-- Custom hooks for reusable logic
+- Static HTML pages served by Express
+- Vanilla JavaScript for interactivity
+- Modular CSS organization
+- API layer for backend communication
+- Responsive design
 
 ---
 
@@ -132,12 +126,11 @@ Used for:
 
 # Environment Configuration
 
-Each service maintains its own `.env` file:
+Backend maintains a `.env` file:
 
 - `backend/.env`
-- `frontend/.env`
 
-These files are ignored using `.gitignore`.
+This file is ignored using `.gitignore`.
 
 ---
 
@@ -153,17 +146,27 @@ npm run dev
 
 ## Frontend
 
-```bash
-cd frontend
-npm install
-npm start
-```
+The frontend is served as static files by the Express server. No separate installation required.
 
 ## Database 
-- checkout the .env.example file and create a ENV file in backend as it is with your values then execute 
+
+1. Check the `.env.example` file and create a `.env` file in backend with your values
+2. Initialize the database schema:
+
 ```bash
 cd backend/src/config
 node initDB.js
 ```
 
-- this will create the database schema 
+---
+
+# Running the Application
+
+Start the backend server:
+
+```bash
+cd backend/src
+node server.js
+```
+
+The application will be available at `http://localhost:5000` 
