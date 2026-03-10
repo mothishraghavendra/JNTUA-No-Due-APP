@@ -55,6 +55,7 @@ async function initDB(){
                 remarks TEXT NULL,
                 approved_by INT NULL,
                 approved_at TIMESTAMP NULL,
+                update_reason text NULL,
 
                 CONSTRAINT fk_approval_application
                     FOREIGN KEY (application_id)
@@ -134,5 +135,7 @@ async function superUser(){
     )
     console.log("Admin created");
 }
-
+// async function addOfficers(){
+//     const password = process.env.
+// }
 module.exports = initDB()
