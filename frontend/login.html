@@ -3,27 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - No Dues System</title>
+    <title>Login - No Dues System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/login.css">
 </head>
 <body>
+    <!-- Login Header -->
+    <header class="login-header">
+        <div class="login-header-content">
+            <img src="https://jntuacea.ac.in/img/logo.png" alt="College Logo" class="college-logo" onerror="this.style.display='none'">
+            <div class="college-info">
+                <h1>JNTUA College of Engineering Ananthapuramu</h1>
+                <p class="accreditation">(Accredited by NAAC with 'A' Grade)</p>
+                <p class="system-name">No Dues Management System</p>
+            </div>
+        </div>
+    </header>
+
     <div class="login-container">
         <div class="login-box">
-            <h2>Admin Login</h2>
+            <h2>Login</h2>
+
             <form id="loginForm">
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="admin@university.com" required>
+                <div class="input-with-icon">
+                    <span class="icon"><i class="fas fa-user"></i></span>
+                    <input type="email" id="email" name="email" placeholder="Enter Username" required>
                 </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <div class="input-with-icon">
+                    <span class="icon"><i class="fas fa-lock"></i></span>
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit" id="loginBtn">Login</button>
                 <p id="errorMsg" class="error-msg"></p>
             </form>
         </div>
     </div>
+
+    <footer class="page-footer">
+        © JNTUACEA - All rights reserved
+    </footer>
 
     <script src="js/login.js"></script>
 </body>

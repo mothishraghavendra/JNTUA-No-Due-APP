@@ -1,86 +1,240 @@
+/* ===== JNTUA Academic Portal Login ===== */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
 /* General Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
 }
 
 /* Body styling */
 body {
-    height: 100vh;
+    font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    background: #eef2f7;
+}
+
+/* Login Header */
+.login-header {
+    background: #ffffff;
+    padding: 15px 40px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.login-header-content {
+    display: flex;
     align-items: center;
-    background: #f0f2f5;
+    justify-content: center;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.college-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.college-info {
+    text-align: left;
+}
+
+.college-info h1 {
+    color: #1e88e5;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.college-info .accreditation {
+    color: #e53935;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.college-info .system-name {
+    color: #43a047;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-top: 2px;
 }
 
 /* Login container */
 .login-container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
 }
 
 /* Login box */
 .login-box {
     background: #ffffff;
-    padding: 40px 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    text-align: center;
+    padding: 40px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #e0e0e0;
 }
 
 .login-box h2 {
     margin-bottom: 30px;
     color: #333;
+    font-size: 1.5rem;
+    font-weight: 400;
 }
 
-/* Input group */
+.login-box .subtitle {
+    display: none;
+}
+
+/* Input with icon */
+.input-with-icon {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-with-icon .icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 1.1rem;
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+}
+
+.input-with-icon input {
+    width: 100%;
+    padding: 15px 15px 15px 60px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.input-with-icon input:focus {
+    outline: none;
+    border-color: #1976d2;
+}
+
+.input-with-icon input::placeholder {
+    color: #aaa;
+}
+
+/* Legacy input group */
 .input-group {
     margin-bottom: 20px;
-    text-align: left;
 }
 
 .input-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
+    display: none;
 }
 
 .input-group input {
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    outline: none;
-    transition: 0.3s;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.2s;
 }
 
 .input-group input:focus {
-    border-color: #007bff;
+    outline: none;
+    border-color: #1976d2;
 }
 
 /* Login button */
-button {
+button[type="submit"],
+#loginBtn {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     border: none;
-    border-radius: 5px;
-    background: #007bff;
+    border-radius: 4px;
+    background: #43a047;
     color: #fff;
-    font-size: 16px;
+    font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.2s;
+    margin-top: 10px;
+    font-family: inherit;
 }
 
-button:hover {
-    background: #0056b3;
+button[type="submit"]:hover,
+#loginBtn:hover {
+    background: #388e3c;
 }
 
 /* Error message */
 .error-msg {
-    color: red;
-    margin-top: 10px;
-    font-size: 14px;
+    color: #e53935;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 10px;
+    background: #ffebee;
+    border-radius: 4px;
+    display: none;
+}
+
+.error-msg:not(:empty) {
+    display: block;
+}
+
+/* Footer */
+.login-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    color: #888;
+    font-size: 0.85rem;
+}
+
+/* Page footer */
+.page-footer {
+    background: #fff;
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .login-box {
+        padding: 30px 25px;
+    }
+    
+    .login-header-content {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .college-info {
+        text-align: center;
+    }
+    
+    .college-info h1 {
+        font-size: 1.2rem;
+    }
 }

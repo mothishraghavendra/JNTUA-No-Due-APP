@@ -4,50 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - No Dues System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/dashboard.css">
 </head>
 <body>
-    <header>
-        <div class="logo">No Dues System</div>
-        <nav>
-            <button id="logoutBtn">Logout</button>
-        </nav>
+    <!-- Header -->
+    <header class="header-container">
+        <img src="https://jntuacea.ac.in/img/logo.png" alt="College Logo" class="college-logo" onerror="this.style.display='none'">
+        <div class="college-info">
+            <h1>JNTUA College of Engineering Ananthapuramu</h1>
+            <p class="accreditation">(Accredited by NAAC with 'A' Grade)</p>
+            <p class="system-name">No Dues Management System - Admin Panel</p>
+        </div>
     </header>
 
-    <main>
-        <h1>Welcome, Admin</h1>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-tabs">
+            <button class="nav-tab active">Home</button>
+            <button class="nav-tab">Students</button>
+            <button class="nav-tab">Departments</button>
+            <button class="nav-tab">Applications</button>
+            <button class="nav-tab logout-tab" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
 
-        <section class="stats">
-            <div class="card">
-                <h3>Total Students</h3>
-                <p id="totalStudents">0</p>
-            </div>
-            <div class="card">
-                <h3>Pending Approvals</h3>
-                <p id="pendingApprovals">0</p>
-            </div>
-            <div class="card">
-                <h3>Completed Applications</h3>
-                <p id="completedApplications">0</p>
+    <main>
+        <!-- My Details Section -->
+        <section class="section-card">
+            <div class="section-header">Admin Details</div>
+            <div class="section-content">
+                <div class="detail-row">
+                    <span class="detail-label">Role:</span>
+                    <span class="detail-value">Administrator</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">System:</span>
+                    <span class="detail-value">No Dues Management System</span>
+                </div>
             </div>
         </section>
 
-        <section class="applications-section">
-            <h2>Applications</h2>
-            <table id="applicationsTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Student Name</th>
-                        <th>Branch</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Dynamic rows will be inserted here -->
-                </tbody>
-            </table>
+        <!-- Stats Row -->
+        <section class="stats-row">
+            <div class="stat-card">
+                <h3>Total Students</h3>
+                <p class="number total" id="totalStudents">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Approvals</h3>
+                <p class="number pending" id="pendingApprovals">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Completed</h3>
+                <p class="number approved" id="completedApplications">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Departments</h3>
+                <p class="number total" id="totalDepartments">0</p>
+            </div>
+        </section>
+
+        <!-- Upload Student Data - styled like Today's Schedule -->
+        <section class="schedule-section">
+            <div class="schedule-header">
+                <h2><span class="schedule-header-icon"><i class="fas fa-upload"></i></span> Upload Student Data</h2>
+            </div>
+            <div class="form-section-content" style="padding: 20px;">
+                <div class="form-row">
+                    <input type="file" id="excelFile" accept=".xls,.xlsx" style="flex: 2;">
+                    <button id="uploadBtn" class="btn btn-primary">Upload</button>
+                    <button id="addUsersBtn" class="btn btn-success" style="display: none;">Add Users</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Uploaded Students Table -->
+        <section class="section-card" id="studentsSection" style="display: none;">
+            <div class="section-header">Uploaded Students</div>
+            <div class="section-content" style="overflow-x: auto;">
+                <table id="studentsTable">
+                    <thead>
+                        <tr>
+                            <!-- Headers will be dynamically inserted -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Student rows will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Department Management - styled like My Classes -->
+        <section class="cards-section">
+            <div class="cards-header">Department Management</div>
+            <div class="dept-grid" id="deptGrid">
+                <!-- Department cards will be inserted here -->
+            </div>
+        </section>
+
+        <!-- Add Officer Form -->
+        <section class="schedule-section">
+            <div class="schedule-header">
+                <h2><span class="schedule-header-icon"><i class="fas fa-user-plus"></i></span> Add Department Officer</h2>
+            </div>
+            <div style="padding: 20px;">
+                <form id="addOfficerForm">
+                    <div class="form-row">
+                        <input type="text" id="officerName" placeholder="Enter officer name" required style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+                        <input type="email" id="officerEmail" placeholder="Enter email address" required style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+                        <input type="password" id="officerPassword" placeholder="Password (min 6 chars)" required minlength="6" style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <div class="form-row" style="margin-top: 15px;">
+                        <select id="selectDepartment" required style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+                            <option value="">Choose a department...</option>
+                        </select>
+                        <button type="submit" class="btn btn-success">Create Officer</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Things to Know -->
+        <section class="info-box">
+            <div class="info-box-header">Things to Know</div>
+            <div class="info-box-content">
+                <ul>
+                    <li><a href="#">Click here for admin guidelines and documentation</a></li>
+                </ul>
+            </div>
         </section>
     </main>
 

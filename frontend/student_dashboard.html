@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - No Dues System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <style>
+        .rejection-reason {
+            margin: 10px 0 0 0;
+            padding: 10px 12px;
+            background: #ffebee;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #c62828;
+        }
+        .no-application {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        .status-item.rejected-item {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .status-item .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-container">
+        <img src="https://jntuacea.ac.in/img/logo.png" alt="College Logo" class="college-logo" onerror="this.style.display='none'">
+        <div class="college-info">
+            <h1>JNTUA College of Engineering Ananthapuramu</h1>
+            <p class="accreditation">(Accredited by NAAC with 'A' Grade)</p>
+            <p class="system-name">No Dues Management System</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-tabs">
+            <button class="nav-tab active">Home</button>
+            <button class="nav-tab" onclick="document.getElementById('statusSection').scrollIntoView({behavior: 'smooth'})">My Applications</button>
+            <button class="nav-tab">Help</button>
+            <button class="nav-tab logout-tab" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- My Details Section -->
+        <section class="section-card">
+            <div class="section-header">My Details</div>
+            <div class="section-content">
+                <div class="detail-row">
+                    <span class="detail-label">Username:</span>
+                    <span class="detail-value" id="studentAdmission">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Name:</span>
+                    <span class="detail-value" id="studentName">-</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- No Due Request Form - styled like Today's Schedule -->
+        <section class="schedule-section" id="nodueFormSection">
+            <div class="schedule-header">
+                <h2><span class="schedule-header-icon"><i class="fas fa-file-alt"></i></span> Raise No Due Request</h2>
+            </div>
+            
+            <form id="nodueForm">
+                <div class="select-all-container">
+                    <input type="checkbox" id="selectAll">
+                    <label for="selectAll">Select All Departments</label>
+                </div>
+
+                <div class="departments-grid">
+                    <div class="department-item">
+                        <input type="checkbox" id="dept1" name="departments" value="College Office">
+                        <label for="dept1">College Office</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept2" name="departments" value="Library">
+                        <label for="dept2">Library</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept3" name="departments" value="SC/ST/BC Book Bank">
+                        <label for="dept3">SC/ST/BC Book Bank</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept4" name="departments" value="Hostel Office">
+                        <label for="dept4">Hostel Office</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept5" name="departments" value="Hostel Furniture">
+                        <label for="dept5">Hostel Furniture</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept6" name="departments" value="Cooperative Stores">
+                        <label for="dept6">Cooperative Stores</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept7" name="departments" value="Physical Education Department">
+                        <label for="dept7">Physical Education Department</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept8" name="departments" value="Student Union">
+                        <label for="dept8">Student Union</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept9" name="departments" value="Workshop">
+                        <label for="dept9">Workshop</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept10" name="departments" value="Physics Laboratory">
+                        <label for="dept10">Physics Laboratory</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept11" name="departments" value="Chemistry Laboratory">
+                        <label for="dept11">Chemistry Laboratory</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept12" name="departments" value="Branch-Specific Laboratories">
+                        <label for="dept12">Branch-Specific Laboratories</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept13" name="departments" value="Head of Department">
+                        <label for="dept13">Head of Department</label>
+                    </div>
+                    <div class="department-item">
+                        <input type="checkbox" id="dept14" name="departments" value="Accounts Section">
+                        <label for="dept14">Accounts Section</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="raise-btn" id="raiseBtn">Raise No Due Request</button>
+            </form>
+        </section>
+
+        <!-- Application Status Section - styled like My Classes -->
+        <section class="cards-section" id="statusSection" style="display: none;">
+            <div class="cards-header">My Applications</div>
+            <div id="statusContent">
+                <!-- Status will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Things to Know -->
+        <section class="info-box">
+            <div class="info-box-header">Things to Know</div>
+            <div class="info-box-content">
+                <ul>
+                    <li><a href="#">Click here to learn how to apply for No Due certificate</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/student_dashboard.js"></script>
+</body>
+</html>

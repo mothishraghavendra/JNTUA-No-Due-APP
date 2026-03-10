@@ -168,5 +168,3 @@ Start the backend server:
 cd backend/src
 node server.js
 ```
-
-The application will be available at `http://localhost:5000` 
